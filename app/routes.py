@@ -51,4 +51,25 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('home'))    
+    return redirect(url_for('home'))   
+
+@app.route("/profile")
+@login_required
+def profile():
+    image_file = url_for('static', filename='profile_pics/'+ current_user.image_file)
+    return render_template("profile.html", title='Profile', image_file=image_file)
+
+
+@app.route("/blog/new", methods=['GET', 'POST'])
+@login_required
+def newblog():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data,
+                    content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your blog has been created!', 'success')
+        return redirect(url_for('home'))
+    return render_template("newblog.html", title='New Blog', 
+    form=form, legend='New Post')    
