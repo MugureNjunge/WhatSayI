@@ -4,6 +4,8 @@ from app.models import User, Post, Quote
 
 # quotes = quotes.quotes
 
+base_url= 'http://quotes.stormconsultancy.co.uk/random.json'
+
 def get_quotes():
   get_quotes_url = base_url.format()
 
