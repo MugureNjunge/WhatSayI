@@ -6,7 +6,8 @@ Whatsayi is a web application that allows users to add blogs/posts. The users ca
 
 The user gets a welcome email once they sign up to our newsletter.
 
-**Live link:** 
+**Live link:** https://git.heroku.com/blogmugure.git
+
 
 **Setup Procedure**
 
