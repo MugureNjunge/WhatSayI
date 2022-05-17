@@ -1,4 +1,5 @@
 virtual/
-.vscode/
 *pyc
 pycache/
+node_modules/
+instance/

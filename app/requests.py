@@ -1,32 +1,30 @@
-from app import app
-import urllib.request,json
-from app.models import User, Post, Quote
+from .models import Quote
+import urllib.request, json
 
-# quotes = quotes.quotes
+randomUrl = "http://quotes.stormconsultancy.co.uk/random.json"
 
-base_url= 'http://quotes.stormconsultancy.co.uk/random.json'
+def getRandom():
+    with urllib.request.urlopen(randomUrl) as url:
+        quote_details_data = url.read()
+        quote_details_response = json.loads(quote_details_data)
+        quote_object = None
 
-def get_quotes():
-  get_quotes_url = base_url.format()
+        if quote_details_response:
+            author = quote_details_response.get('author')
+            quote = quote_details_response.get('quote')
+            quote_object = Quote(author, quote)
+            return quote_object
 
-  with urllib.request.urlopen(get_quotes_url) as url:
-    get_quotes_data = url.read()
-    get_quotes_response = json.loads(get_quotes_data)
 
-    quotes_results = None
+popularUrl = "http://quotes.stormconsultancy.co.uk/popular.json"
+def getPopular():
+     with urllib.request.urlopen('popularUrl') as url:
+        quote_details_data = url.read()
+        quote_details_response = json.loads(quote_details_data)
+        quote_object = None
 
-    if get_quotes_response['articles']:
-      quotes_results_list = get_quotes_response['quotes']
-      quotes_results = process_results(quotes_results_list)
-  return quotes_results
-
-def process_results(quotes_list):
-  quotes_results = []
-  for quotes_item in quotes_list:
-    author = quotes_item.get("author")
-    id = quotes_item.get("id")
-    quote = quotes_item.get("quote")
-
-    quotes_object = quote(author, id, quote)
-    quotes_results.append(quotes_object)
-  return quotes_results  
+        if quote_details_response:
+            author = quote_details_response.get('author')
+            quote = quote_details_response.get('quote')
+            quote_object = Quote(author, quote)
+            return quote_object
