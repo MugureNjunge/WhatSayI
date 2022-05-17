@@ -1,51 +1,29 @@
+from app import db, login_manager
 from flask_login import UserMixin
-from datetime import datetime
 
-from . import db, login_manager
 
 @login_manager.user_loader
-def login_user(user_id):
+def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-class User(UserMixin, db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    image = db.Column(db.String(120), nullable=False, default='default.jpg')
+    email = db.Column(db.String(40), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship('Post', backref='author',lazy=True)
-    comment = db.relationship('Comments', backref='user', lazy='dynamic')
+    posts = db.relationship('Post', backref='author', lazy=True)
+
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}')"
 
 
-def __repr__(self):
-    return f'User({self.username}, {self.email},{self.image})'
-
-class Post (db.Model):
-
+class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    datePosted = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
-    title = db.Column(db.Text, nullable=False)
+    title = db.Column(db.String(180), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
-    comment =  db.relationship('Comments',backref='post',lazy='dynamic')
+    category = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-
-def __repr__(self):
-    return f"User({self.content},{self.datePosted})"
-
-class Comments (db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False) 
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'),nullable=False)
-    comment = db.Column(db.String(100))
-
-
-def __repr__(self):
-    return f'User({self.comment})'
-   
-
-class Quote:
-    def __init__(self, author, quote):
-        self.author = author
-        self.quote = quote
+    def __repr__(self):
+        return f"Post('{self.category}', '{self.title}', '{self.content}')"

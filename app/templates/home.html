@@ -1,19 +1,25 @@
 {% extends "index.html" %}
 {% block content %}
+
+<div class="card-content mt-4 pt-2">
+  <ul>
+    <li>View all your past posts.</li>
+    <li>View other people's posts</li>
+    <li>Cast a vote on all posts(either a thumbs up or thumbs down!)</li>
+    <li>Comment on any pitch you come across in this application.</li>
+  </ul>  
+</div>
+
   {% for post in posts %}
 
-    <article class="media content-section">
-      <img class="rounded-circle article-img" src="{{ url_for( 'static', filename='profile_pics/' + post.author.image_file) }}">
-
-        <div class="media-body bg-warning mt-2">
-          <div class="article-metadata">
-            <h5> <a class="mr-2 text-dark" href="#"><strong>Author : </strong> {{ post.author.username }}</a></h5>
-          </div>
-          <h4><a class="article-title text-dark" href="{{ url_for('post', post_id=post.id)}}">{{ post.title }}</a></h4>
-          <p class="article-content text-dark">{{ post.content }}</p>
-        </div>
-               
-    </article> 
+    <div class="media-body bg-warning mt-2">
+      <div class="article-metadata">
+       <h5> <a class="mr-2 text-dark" href="#"><strong>Author : </strong> {{ post.author.username }}</a></h5>
+      </div>
+      <p class="article-content text-dark">{{ post.category }}</p>
+      <h4><a class="article-title text-dark" href="#">{{ post.title }}</a></h4>
+      <p class="article-content text-dark">{{ post.content }}</p>
+    </div>
+          
   {% endfor %}
-
-{% endblock content%}
+{% endblock %}  

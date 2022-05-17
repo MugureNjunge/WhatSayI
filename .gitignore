@@ -1,13 +1,4 @@
-pycache/
-start.sh
-**/__pycache__/
-.vscode/
-
-.idea/
-
-venv/
 virtual/
-
-*.pyc
-start.sh
-instance/
+.vscode/
+*pyc
+pycache/

@@ -1,5 +1,0 @@
-{{user.username}} ,
-
-Welcome to WhatSayIBlog!
-
-Go ahead and create posts, update posts and comment on other users' posts.Have fun!
