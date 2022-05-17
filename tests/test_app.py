@@ -1,5 +1,5 @@
 import unittest
-from app.models import Pitch
+from app.models import Post
 
 class PitchTest(unittest.TestCase):
     '''
@@ -10,8 +10,8 @@ class PitchTest(unittest.TestCase):
         '''
         Set up method that will run before every Test
         '''
-        self.new_pitch = Pitch(1,'Business Proposal','Product', 'Sample test case for the program')
+        self.new_pitch = Post('')
 
     def test_instance(self):
-        self.assertTrue(isinstance(self.new_pitch,Pitch))
+        self.assertTrue(isinstance(self.new_pitch,Post))
 

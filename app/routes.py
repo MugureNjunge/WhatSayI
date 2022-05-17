@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect
 from app import app, db
-from app.forms import SignupForm, LoginForm, PostForm
+from app.forms import SignupForm, LoginForm, PostForm,CommentForm
 from app.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -11,11 +11,6 @@ def home():
     posts = Post.query.all()
     return render_template("home.html", posts=posts)
 
-
-@app.route("/about")
-def about():
-
-    return render_template("about.html")
 
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -61,12 +56,6 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/account")
-@login_required
-def account():
-    return render_template("account.html", title='Account')
-
-
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
@@ -76,6 +65,23 @@ def new_post():
                     content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Your post has been created!', 'success')
+        flash('Your blog has been created!', 'success')
         return redirect(url_for('home'))
-    return render_template("create_post.html", title='New Post', form=form)
+    return render_template("create_post.html", title='New Blog', form=form)
+
+@app.route('/comment/<int:blog_id>',methods = ['GET','POST'])
+@login_required
+def comment(post_id):
+    post=post.query.get_or_404(post_id)
+    form = CommentForm()
+    allComments = comment.query.filter_by(post_id = post_id).all()
+    if form.validate_on_submit():
+        postedComment = comment(comment=form.comment.data,user_id = current_user.id, post_id = post_id)
+        post_id = post_id
+        db.session.add(postedComment)
+        db.session.commit()
+        flash('Your comment is posted')
+        
+        return redirect(url_for('comment',post_id=post_id))
+
+    return render_template("comment.html",post=post, title='Add a comment!', form = form,allComments=allComments)    

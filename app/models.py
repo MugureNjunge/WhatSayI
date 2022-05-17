@@ -27,3 +27,13 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.category}', '{self.title}', '{self.content}')"
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False) 
+    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'),nullable=False)
+    comment = db.Column(db.String(100))
+    
+
+    def __repr__(self):
+            return f"Comment('{self.comment}')"        

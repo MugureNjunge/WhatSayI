@@ -40,6 +40,16 @@ class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     category = TextAreaField('Category', validators=[DataRequired()])
-    submit = SubmitField('Post')
+    submit = SubmitField('Add Blog')
+
+class CommentForm(FlaskForm):
+    
+    comment = TextAreaField('Write a comment...',validators=[DataRequired()])
+    submit = SubmitField('Post a Comment')
+    
+class SubscribeForm(FlaskForm):
+    username = StringField('Name', validators=[DataRequired(), Length(min=2, max=25)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField(' Subscribe to this Blog!')    
 
     
