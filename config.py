@@ -5,7 +5,7 @@ class Config:
     Parent config class
     '''
     SECRET_KEY =os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     # Mail confugurations
     MAIL_SERVER = 'smtp.googlemail.com'
@@ -13,8 +13,8 @@ class Config:
     MAIL_USE_TLS=True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    SUBJECT_PREFIX = 'WhatSayIBlog!'
-    SENDER_EMAIL = 'maureennjunge22@gmail.com'
+    # SUBJECT_PREFIX = 'WhatSayIBlog!'
+    # SENDER_EMAIL = 'maureennjunge22@gmail.com'
 
 
     @staticmethod
@@ -28,18 +28,18 @@ class ProdConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
     
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-# .replace("://", "ql://",1)
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    # .replace("://", "ql://",1)
 
 
-DEBUG = True
+    DEBUG = False
 
 
 class TestConfig(Config):
     '''
     Test
     '''
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 # .replace("://", "ql://",1)
 
 
@@ -49,7 +49,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://maureen:Mugure01@localhost/blogit'
 # .replace("://", "ql://",1)
 
 
@@ -58,3 +58,4 @@ config_options = {
 'production':ProdConfig,
 'test':TestConfig,
 }
+

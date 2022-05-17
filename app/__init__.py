@@ -23,7 +23,7 @@ login_manager.login_message_category='info'
 def create_app(config_name):
 
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://maureen:Mugure01@localhost/blogwhatsayi'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://maureen:Mary01@localhost/blogit'
     db.init_app(app)
 
     with app.app_context():

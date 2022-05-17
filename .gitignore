@@ -1,5 +1,13 @@
-virtual/
-*pyc
 pycache/
-node_modules/
+start.sh
+**/__pycache__/
+.vscode/
+
+.idea/
+
+venv/
+virtual/
+
+*.pyc
+start.sh
 instance/
